@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class RoleSeeder extends Seeder
 {
@@ -17,8 +18,8 @@ class RoleSeeder extends Seeder
     {
         Role::factory()->count(2)->create(
             new Sequence(
-                ['name' => 'Administrador'],
-                ['name' => 'Cliente'],
+                ['name' => 'Administrador',],
+                ['name' => 'Cliente',],
             )
         );
     }
