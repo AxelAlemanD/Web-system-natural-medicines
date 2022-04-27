@@ -19,7 +19,7 @@ class ProductFactory extends Factory
         return [
             'name'          => $this->faker->sentence,
             'description'   => $this->faker->paragraph,
-            'url_image'     => 'images/db/' . $img_name,
+            'url_image'     => 'https://picsum.photos/200/200?random='.rand(1, 100),
             'price'         => $this->faker->randomFloat(2, 100, 10000),
             'quantity'      => $this->faker->numberBetween(1, 50),
         ];
