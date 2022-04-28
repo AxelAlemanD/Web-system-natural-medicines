@@ -20,4 +20,30 @@ class Sale extends Model
         'amount_paid',
         'status_id',
     ];
+
+
+    /**
+     * Get the user that owns the comment.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+
+    /**
+     * Get the sales for the product
+     */    
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)
+                    ->withPivot('quantity');
+    }
+
+    /**
+     * Get the status that owns the Sale.
+     */
+    public function status(){
+        return $this->belongsTo(Status::class);
+    }
 }

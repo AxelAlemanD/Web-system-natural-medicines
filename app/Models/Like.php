@@ -18,4 +18,20 @@ class Like extends Model
         'user_id',
         'product_id',
     ];
+
+    /**
+     * Get the product that owns the like.
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    /**
+     * Get the user that owns the like.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -21,4 +21,38 @@ class Product extends Model
         'price',
         'quantity',
     ];
+
+    /**
+     * Get the comments for the product.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Get the likes for the product.
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    /**
+     * Get the categories for the product
+     */    
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    /**
+     * Get the sales for the product
+     */    
+    public function sales()
+    {
+        return $this->belongsToMany(Sale::class)
+                    ->withPivot('quantity');
+    }
+
 }

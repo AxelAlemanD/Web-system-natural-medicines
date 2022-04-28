@@ -17,4 +17,12 @@ class Role extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * Get the Users that owns the Role
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
 }

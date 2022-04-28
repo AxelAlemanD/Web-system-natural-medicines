@@ -17,4 +17,12 @@ class Status extends Model
     protected $fillable = [
         'name',
     ];
+    
+    /**
+     * Get the Booking_details that owns the Service
+     *
+     */
+    public function sale(){
+        return $this->hasMany(Sale::class);
+    }
 }
