@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,5 +46,20 @@ class Sale extends Model
      */
     public function status(){
         return $this->belongsTo(Status::class);
+    }
+
+
+    /**
+     * Get sale date
+     */
+    public function getDate(){
+        return $this->created_at->format('d/m/Y');
+    }
+
+    /**
+     * Get double in currency format
+     */
+    public function numberToCurrency($value){
+        return '$' . number_format($value, 2);
     }
 }

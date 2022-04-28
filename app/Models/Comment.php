@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,5 +35,13 @@ class Comment extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    /**
+     * Get elapsed time since comment
+     */
+    public function getElapsedTime(){
+        Carbon::setLocale('es');
+        return $this->created_at->diffForHumans();
     }
 }

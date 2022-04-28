@@ -55,4 +55,11 @@ class Product extends Model
                     ->withPivot('quantity');
     }
 
+    
+    /**
+     * Get price in currency format
+     */
+    public function getPrice(){
+        return '$' . number_format($this->price, 2);
+    }
 }
