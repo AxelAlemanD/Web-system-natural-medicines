@@ -33,11 +33,18 @@
                     <div class="mr-3 mt-0 mt-sm-1 d-block">
                         <h6 class="mb-1 font-weight-bold">{{$product->name}}</h6>
                         <p class="mb-0 fs-12">{{$product->description}}</p>
+                        <div class="mt-3">
+                            @isset($product->categories)
+                                @foreach ($product->categories as $category)
+                                    <span class="badge bg-primary-transparent border border-primary rounded-pill">{{$category->name}}</span>    
+                                @endforeach
+                            @endisset
+                        </div>
                         <div class="row mt-3">
-                            <div class="col float-left">
+                            <div class="col-6 text-left">
                                 <h6 class="fs-14 text-primary">{{$product->getPrice()}}</h6>
                             </div>
-                            <div class="col float-right text-right">
+                            <div class="col-6 text-right">
                                 <p class="text-muted fs-13">Disponibles: {{$product->quantity}}</p>
                             </div>
                         </div>
