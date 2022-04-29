@@ -20,6 +20,10 @@
 		<!-- P-scroll bar css: Desplazamiento en panel de navegación-->
 		<link href="{{ asset('plugins/p-scrollbar/p-scrollbar.css') }}" rel="stylesheet" />
 
+		<!-- Fuente Poppins -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
         @yield('extra-css')
 	</head>
 
@@ -38,7 +42,7 @@
                     <x-navbar />
                     <!--/app header-->
 						<!--Content-->
-						@yield('contenido')
+						@yield('content')
 						<!--/Content-->
 					</div>
 				</div>
