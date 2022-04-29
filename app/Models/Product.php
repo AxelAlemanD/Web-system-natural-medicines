@@ -64,6 +64,14 @@ class Product extends Model
         return '$' . number_format($this->price, 2);
     }
 
+    /**
+     * Get price in currency format
+     */
+    public function getTotal($quantity)
+    {
+        return '$' . number_format($this->price * $quantity, 2);
+    }
+
 
     /**
      * Generate url and save image
