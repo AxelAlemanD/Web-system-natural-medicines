@@ -25,4 +25,25 @@ class Category extends Model
     {
         return $this->belongsToMany(Product::class);
     }
+
+    /**
+     * Check if the category exists
+     */    
+    public static function exist($categoryName)
+    {
+        $category = Category::whereRaw('upper(name) = upper("'.$categoryName.'")')->first();
+        return $category;
+    }
+
+    /**
+     * Store category
+    * @return Category $category
+     */    
+    public static function saveCategory($categoryName){
+        $category = Category::exist($categoryName);
+        
+        if(is_null($category))
+            $category = Category::create(['name' => $categoryName]);
+        return $category;
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -14,7 +16,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('categories')->get();
         return view('Products.index', get_defined_vars());
     }
 
@@ -25,7 +27,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('Products.create', get_defined_vars());
     }
 
     /**
@@ -34,9 +37,27 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        if ($request->hasFile('url_image')) {
+            $image = Product::saveImage($request->file('url_image'));
+            $request->merge(['url_image' => $image['filename']]);
+        }
+
+        $product = Product::create($request->all());
+        
+        if($request->url_image != null){
+            $product->url_image = 'images/' . $image['name'];
+        }
+        
+        $product->save();
+
+        foreach ($request->categories as $category) {
+            $category = Category::saveCategory($category);
+            $product->categories()->attach($category);
+        }
+        
+        return redirect()->route('productos.index');
     }
 
     /**
