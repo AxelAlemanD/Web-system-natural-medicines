@@ -40,9 +40,9 @@
 				{{-- Nombre --}}
 				<div class="col">
 					@if (!isset($customer))
-					<x-field label="Nombre" name="first_name" value="{{old('first_name')}}" type="text" placeholder="Ingresa nombre de cliente"/>	
+					<x-field label="Nombre" name="first_name" value="{{old('first_name')}}" type="text" placeholder="Ingresa nombre de cliente" other="required"/>	
 					@else
-					<x-field label="Nombre" name="first_name" value="{{$customer->first_name}}" type="text" placeholder="Ingresa nombre de cliente"/>
+					<x-field label="Nombre" name="first_name" value="{{$customer->first_name}}" type="text" placeholder="Ingresa nombre de cliente" other="required"/>
 					@endif
 				</div>
 			</div>
@@ -50,9 +50,9 @@
 				{{-- Apellidos --}}
 				<div class="col">
 					@if (!isset($customer))
-					<x-field label="Apellidos" name="last_name" value="{{old('last_name')}}" type="text" placeholder="Ingresa apellidos del cliente"/>
+					<x-field label="Apellidos" name="last_name" value="{{old('last_name')}}" type="text" placeholder="Ingresa apellidos del cliente" required="false"/>
 					@else
-					<x-field label="Apellidos" name="last_name" value="{{$customer->last_name}}" type="text" placeholder="Ingresa apellidos del cliente"/>
+					<x-field label="Apellidos" name="last_name" value="{{$customer->last_name}}" type="text" placeholder="Ingresa apellidos del cliente" required="false"/>
 					@endif
 				</div>
 			</div>
@@ -60,9 +60,9 @@
 				{{-- Apellidos --}}
 				<div class="col">
 					@if (!isset($customer))
-					<x-field label="Número de telefono" name="phone_number" value="{{old('phone_number')}}" type="text" placeholder="Ej. 8341001234"/>
+					<x-field label="Número de telefono" name="phone_number" value="{{old('phone_number')}}" type="text" placeholder="Ej. 8341001234" required="false"/>
 					@else
-					<x-field label="Número de telefono" name="phone_number" value="{{$customer->phone_number}}" type="text" placeholder="Ej. 8341001234"/>
+					<x-field label="Número de telefono" name="phone_number" value="{{$customer->phone_number}}" type="text" placeholder="Ej. 8341001234" required="false"/>
 					@endif
 				</div>
 			</div>
@@ -70,9 +70,9 @@
 				{{-- Dirección --}}
 				<div class="col">
 					@if (!isset($customer))
-					<x-text-area label="Dirección" name="address" content="{{old('address')}}" rows=4 placeholder="Ej. Gutierrez de Lara"/>
+					<x-text-area label="Dirección" name="address" content="{{old('address')}}" rows=4 placeholder="Ej. Gutierrez de Lara" required="false"/>
 					@else
-					<x-text-area label="Dirección" name="address" content="{{$customer->address}}" rows=4 placeholder="Ej. Gutierrez de Lara"/>
+					<x-text-area label="Dirección" name="address" content="{{$customer->address}}" rows=4 placeholder="Ej. Gutierrez de Lara" required="false"/>
 					@endif
 				</div>
 			</div>

@@ -58,9 +58,9 @@
 							
 							<div class="ml-sm-3 mt-4">
 								@if (!isset($product))
-									<x-field label="Foto del producto" name="url_image" value="{{old('url_image')}}" type="file" placeholder="Seleccionar imagen" events='onchange=previewImage(event)' />
+									<x-field label="Foto del producto" name="url_image" value="{{old('url_image')}}" type="file" placeholder="Seleccionar imagen" other='onchange=previewImage(event)' other="required"/>
 								@else
-									<x-field label="Foto del producto" name="url_image" value="{{$product->url_image}}" type="file" placeholder="Seleccionar imagen" events='onchange=previewImage(event)' />
+									<x-field label="Foto del producto" name="url_image" value="{{$product->url_image}}" type="file" placeholder="Seleccionar imagen" other='onchange=previewImage(event)'/>
 								@endif
 							</div>
 						</div>
@@ -71,9 +71,9 @@
 				{{-- Nombre --}}
 				<div class="col">
 					@if (!isset($product))
-						<x-field label="Nombre" name="name" value="{{old('name')}}" type="text" placeholder="Ingresa nombre de producto"/>
+						<x-field label="Nombre" name="name" value="{{old('name')}}" type="text" placeholder="Ingresa nombre de producto" other="required"/>
 					@else
-						<x-field label="Nombre" name="name" value="{{$product->name}}" type="text" placeholder="Ingresa nombre de producto"/>
+						<x-field label="Nombre" name="name" value="{{$product->name}}" type="text" placeholder="Ingresa nombre de producto" other="required"/>
 					@endif
 					
 				</div>
@@ -82,9 +82,9 @@
 				{{-- Descripción --}}
 				<div class="col">
 					@if (!isset($product))
-					<x-text-area label="Descripción" name="description" content="{{old('description')}}" rows=4 placeholder="Ingresa una descripción"/>
+					<x-text-area label="Descripción" name="description" content="{{old('description')}}" rows=4 placeholder="Ingresa una descripción" other="required"/>
 					@else
-					<x-text-area label="Descripción" name="description" content="{{$product->description}}" rows=4 placeholder="Ingresa una descripción"/>
+					<x-text-area label="Descripción" name="description" content="{{$product->description}}" rows=4 placeholder="Ingresa una descripción" other="required"/>
 					@endif
 					
 				</div>
@@ -93,18 +93,18 @@
 				{{-- Precio --}}
 				<div class="col-6">
 					@if (!isset($product))
-					<x-field label="Precio" name="price" value="{{old('price')}}" type="number" placeholder="$00.00" events='step=0.01'/>
+					<x-field label="Precio" name="price" value="{{old('price')}}" type="number" placeholder="$00.00" other='step=0.01' other="required"/>
 					@else
-					<x-field label="Precio" name="price" value="{{$product->price}}" type="number" placeholder="$00.00" events='step=0.01'/>
+					<x-field label="Precio" name="price" value="{{$product->price}}" type="number" placeholder="$00.00" other='step=0.01' other="required"/>
 					@endif
 					
 				</div>
 				{{-- Cantidad --}}
 				<div class="col-6">
 					@if (!isset($product))
-					<x-field label="Cantidad" name="quantity" value="{{old('quantity')}}" type="number" placeholder="00"/>
+					<x-field label="Cantidad" name="quantity" value="{{old('quantity')}}" type="number" placeholder="00" other="required"/>
 					@else
-					<x-field label="Cantidad" name="quantity" value="{{$product->quantity}}" type="number" placeholder="00"/>						
+					<x-field label="Cantidad" name="quantity" value="{{$product->quantity}}" type="number" placeholder="00" other="required"/>						
 					@endif
 				</div>
 			</div>
@@ -113,7 +113,7 @@
 				{{-- Categorias --}}
 					<div class="form-group">
 						<label class="form-label">Categorias:</label>
-						<select name="categories[]"  class="form-control custom-select select2-multiple @error('categories') is-invalid @enderror" data-placeholder="Agregar categoria"  multiple="multiple">
+						<select name="categories[]"  class="form-control custom-select select2-multiple @error('categories') is-invalid @enderror" data-placeholder="Agregar categoria"  multiple="multiple" required>
 							<option label="Agregar etiqueta"></option>
 							@foreach ($categories as $category)
 								@if (!isset($product))

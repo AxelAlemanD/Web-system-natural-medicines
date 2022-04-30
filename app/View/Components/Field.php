@@ -39,11 +39,11 @@ class Field extends Component
     public $placeholder;
 
     /**
-     * The input events.
+     * The input events attributes.
      *
      * @var string
      */
-    public $events;
+    public $other;
 
 
     /**
@@ -51,14 +51,14 @@ class Field extends Component
      *
      * @return void
      */
-    public function __construct($label, $name, $type, $value, $placeholder, $events = null)
+    public function __construct($label, $name, $type, $value, $placeholder, $other = null)
     {
         $this->label        = $label;
         $this->name         = $name;
         $this->type         = $type;
         $this->value        = $value;
         $this->placeholder  = $placeholder;
-        $this->events       = $events;
+        $this->other        = $other;
     }
 
     /**
