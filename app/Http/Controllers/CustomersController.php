@@ -54,7 +54,9 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = User::findOrFail($id);
+
+        return view('Customers.show', get_defined_vars());
     }
 
     /**
