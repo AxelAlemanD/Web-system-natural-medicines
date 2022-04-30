@@ -62,4 +62,13 @@ class Sale extends Model
     public function numberToCurrency($value){
         return '$' . number_format($value, 2);
     }
+
+    /**
+     * Get some products from the current sale
+     */
+    public function getSomeProducts(){
+        foreach ($this->products->take(4) as $product) {
+            print($product->pivot->quantity.' '.$product->name.', ');
+        }
+    }
 }
