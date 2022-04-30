@@ -22,5 +22,5 @@ var options = {
     'templateSelection': custom_template,
     'templateResult': custom_template,
 }
-$('.platillos').select2(options);
-$($('.platillos').data('select2').$container).addClass('carclass');
+$('.productos').select2(options);
+$($('.productos').data('select2').$container).addClass('carclass');
