@@ -18,6 +18,12 @@ class TextArea extends Component
      * @var string
      */
     public $name;
+
+    /**
+     * The textarea content.
+     * @var string
+     */
+    public $content;
     
     /**
      * The textarea rows.
@@ -38,10 +44,11 @@ class TextArea extends Component
      *
      * @return void
      */
-    public function __construct($label, $name, $rows, $placeholder)
+    public function __construct($label, $name, $content, $rows, $placeholder)
     {
         $this->label = $label;
         $this->name = $name;
+        $this->content = $content;
         $this->rows = $rows;
         $this->placeholder = $placeholder;
     }
