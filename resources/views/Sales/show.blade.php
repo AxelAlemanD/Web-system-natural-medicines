@@ -91,15 +91,17 @@
 				<h5 class="font-weight-bold">{{$sale->numberToCurrency($sale->total_amount - $sale->amount_paid)}}</h5>
 			</div>
 		</div>
-		{{-- Hisstorial de compras --}}
+		{{-- Lista de productos --}}
 		<div class="row mt-5">
 			<div class="row">
+				<h4 class="font-weight-bold mt-7 text-center">Lista de productos</h4>
 				<div class="table-responsive">
                     <table class="table table-vcenter text-wrap border-bottom" id="project-list">
 						<thead>
-							<td colspan="4">
-								<h5 class="font-weight-bold text-center">Lista de productos</h5>
-							</td>
+							<th>Producto</th>
+							<th>Cantidad</th>
+							<th>Precio</th>
+							<th>Total</th>
 						</thead>
                         <tbody>
 							@foreach ($sale->products as $product)
@@ -109,12 +111,11 @@
 											<img src="{{asset($product->url_image)}}"  class="avatar avatar-xxl bradius mr-3">
 											<div class="mr-3 mt-0 mt-sm-1 d-block">
 												<h6 class="mb-1 font-weight-bold">{{$product->name}}</h6>
-												<p class="mb-0 fs-12">{{$product->description}}</p>
 											</div>
 										</div>
 									</td>
                             	    <td>
-                            	        {{$sale->getDate()}}
+                            	        {{$product->getPrice()}}
                             	    </td>
 									<td>
 										{{$product->pivot->quantity}}
@@ -136,6 +137,22 @@
 							@endforeach
                         </tbody>
                     </table>
+				</div>
+			</div>
+		</div>
+		{{-- Total --}}
+		<div class="row mt-7 fixed-bottom" style="margin-bottom:-1rem;">
+			<div class="card">
+				<div class="card-body text-center">
+					<h6 class="mb-1 fs-17 text-muted">Total:</h6>
+					<h3 class="font-weight-bold" style="color:#6A54DF;">{{$sale->numberToCurrency($sale->total_amount)}}</h3>
+					@if ($sale->status->name == 'Pagado')
+                        <span class="badge bg-primary-transparent border border-primary rounded-pill">{{$sale->status->name}}</span>
+                    @elseif ($sale->status->name == 'En proceso')
+                        <span class="badge bg-warning-transparent border border-warning rounded-pill">{{$sale->status->name}}</span>
+                    @else
+                        <span class="badge bg-danger-transparent border border-danger rounded-pill">{{$sale->status->name}}</span>
+                    @endif
 				</div>
 			</div>
 		</div>
