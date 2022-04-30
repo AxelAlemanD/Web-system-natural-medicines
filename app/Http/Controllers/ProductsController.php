@@ -80,7 +80,9 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        return view('Products.create', get_defined_vars());
     }
 
     /**
@@ -90,9 +92,51 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $oldProduct = $product; // Make a copy of the old product
+
+
+        // Add and remove categories
+        foreach ($request->categories as $category) {
+            $category = Category::saveCategory($category);
+            // If the product does not have the category, it is added
+            if (!($product->hasAnyCategory($category->name))) {
+                $product->categories()->attach($category);
+            }
+            // The categories it already contains are removed from the old product
+            $oldProduct->categories = $oldProduct->removeCategory($category);
+        }
+
+        // Generate image url
+        if ($request->hasFile('url_image')) {
+            $image = Product::saveImage($request->file('url_image'));
+            $request->merge(['url_image' => $image['filename']]);
+        }
+
+
+        // Remove relation
+        foreach ($oldProduct->categories as $category) {
+            $category->pivot->delete();
+        }
+
+        // Update product information
+        $product->update([
+            'name'          => $request->name,
+            'description'   => $request->description,
+            'price'         => $request->price,
+            'quantity'      => $request->quantity,
+        ]);
+        
+        // Update product image url
+        if($request->url_image != null){
+            $product->url_image = 'images/' . $image['name'];
+        }
+
+        $product->save();
+
+        return redirect()->route('productos.index');
     }
 
     /**

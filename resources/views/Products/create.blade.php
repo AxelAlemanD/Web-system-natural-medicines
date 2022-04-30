@@ -17,11 +17,19 @@
 <!-- CABECERA -->
 <div class="page-header d-xl-flex d-block">
     <div class="page-leftheader">
-        <h4 class="page-title">Agregar producto</h4>
+		@if (!isset($product))
+			<h4 class="page-title">Agregar producto</h4>
+		@else
+			<h4 class="page-title">Editar producto #{{$product->id}}</h4>
+		@endif
         <ul class="breadcrumb">
             <li class="mb-1 fs-16"><a href="{{ url()->previous() }}">Productos</a></li>
             <li class="text-muted mb-1 fs-16 ml-2 mr-2"> / </li>
-            <li class="text-muted mb-1 fs-16">Agregar producto</li>
+			@if (!isset($product))
+				<li class="text-muted mb-1 fs-16">Agregar producto</li>
+			@else
+				<li class="text-muted mb-1 fs-16">Editar producto #{{$product->id}}</li>
+			@endif
         </ul>
     </div>
 </div>
@@ -30,16 +38,30 @@
 <!-- CONTENIDO -->
 <div class="row">
 	<div class="col-xl-12 col-md-12 col-lg-12">
-		<form action="{{route('productos.store')}}" method="POST" enctype="multipart/form-data">
+		@if (!isset($product))
+		<form action="{{route('productos.store')}}" method="POST" enctype="multipart/form-data">	
+		@else
+		<form action="{{route('productos.update', $product->id)}}" method="POST" enctype="multipart/form-data">
+			@method('PUT')
+		@endif
 			@csrf
 			<div class="row">
 				{{-- Imagen --}}
 				<div class="col">
 					<div class="box-widget widget-user">
 						<div class="widget-user-image d-flex">
-							<img src="{{asset('images/image.svg')}}" class="avatar avatar-xxl bradius mr-3" alt="Foto producto" name="image" id="image">
+							@if (!isset($product))
+							<img src="{{asset('images/image.svg')}}" class="avatar avatar-xxl bradius mr-3" alt="Foto producto" name="image" id="image">	
+							@else
+							<img src="{{asset($product->url_image)}}" class="avatar avatar-xxl bradius mr-3" alt="Foto producto" name="image" id="image">
+							@endif
+							
 							<div class="ml-sm-3 mt-4">
-								<x-field label="Foto del producto" name="url_image" type="file" placeholder="Seleccionar imagen" events='onchange=previewImage(event)' />
+								@if (!isset($product))
+									<x-field label="Foto del producto" name="url_image" value="{{old('url_image')}}" type="file" placeholder="Seleccionar imagen" events='onchange=previewImage(event)' />
+								@else
+									<x-field label="Foto del producto" name="url_image" value="{{$product->url_image}}" type="file" placeholder="Seleccionar imagen" events='onchange=previewImage(event)' />
+								@endif
 							</div>
 						</div>
 					</div>
@@ -48,23 +70,42 @@
 			<div class="row">
 				{{-- Nombre --}}
 				<div class="col">
-					<x-field label="Nombre" name="name" type="text" placeholder="Ingresa nombre de producto"/>
+					@if (!isset($product))
+						<x-field label="Nombre" name="name" value="{{old('name')}}" type="text" placeholder="Ingresa nombre de producto"/>
+					@else
+						<x-field label="Nombre" name="name" value="{{$product->name}}" type="text" placeholder="Ingresa nombre de producto"/>
+					@endif
+					
 				</div>
 			</div>
 			<div class="row">
 				{{-- Descripción --}}
 				<div class="col">
-					<x-text-area label="Descripción" name="description" rows=4 placeholder="Ingresa una descripción"/>
+					@if (!isset($product))
+					<x-text-area label="Descripción" name="description" content="{{old('description')}}" rows=4 placeholder="Ingresa una descripción"/>
+					@else
+					<x-text-area label="Descripción" name="description" content="{{$product->description}}" rows=4 placeholder="Ingresa una descripción"/>
+					@endif
+					
 				</div>
 			</div>
 			<div class="row">
 				{{-- Precio --}}
 				<div class="col-6">
-					<x-field label="Precio" name="price" type="number" placeholder="$00.00" events='step=0.01'/>
+					@if (!isset($product))
+					<x-field label="Precio" name="price" value="{{old('price')}}" type="number" placeholder="$00.00" events='step=0.01'/>
+					@else
+					<x-field label="Precio" name="price" value="{{$product->price}}" type="number" placeholder="$00.00" events='step=0.01'/>
+					@endif
+					
 				</div>
 				{{-- Cantidad --}}
 				<div class="col-6">
-					<x-field label="Cantidad" name="quantity" type="number" placeholder="00"/>
+					@if (!isset($product))
+					<x-field label="Cantidad" name="quantity" value="{{old('quantity')}}" type="number" placeholder="00"/>
+					@else
+					<x-field label="Cantidad" name="quantity" value="{{$product->quantity}}" type="number" placeholder="00"/>						
+					@endif
 				</div>
 			</div>
 			<div class="row">
@@ -75,7 +116,11 @@
 						<select name="categories[]"  class="form-control custom-select select2-multiple @error('categories') is-invalid @enderror" data-placeholder="Agregar categoria"  multiple="multiple">
 							<option label="Agregar etiqueta"></option>
 							@foreach ($categories as $category)
-								<option value="{{$category->name}}">{{$category->name}}</option>
+								@if ($product->categories->contains($category))
+									<option value="{{$category->name}}" selected>{{$category->name}}</option>
+								@else
+									<option value="{{$category->name}}">{{$category->name}}</option>
+								@endif
 							@endforeach
 						</select>
 						@error('categories')

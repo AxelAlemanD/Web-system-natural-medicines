@@ -55,6 +55,32 @@ class Product extends Model
                     ->withPivot('quantity');
     }
 
+
+    /**
+     * Check if current product has any category
+     * @param string $category
+     * @return bool
+     */
+    public function hasAnyCategory($category)
+    {
+        return null !== $this->categories()->where('name', $category)->first();
+    }
+
+    /**
+     * Remove the active categories of the current product
+     * @param string $category
+     * @return bool
+     */
+    public function removeCategory($category)
+    {
+        $this->categories = $this->categories->filter(function ($item) use($category) {
+            if ($item->name != $category->name) {
+                return $item;
+            }
+        });
+        return $this->categories;
+    }
+
     
     /**
      * Get price in currency format
