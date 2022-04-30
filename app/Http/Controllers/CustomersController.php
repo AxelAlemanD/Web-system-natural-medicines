@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
 
 class CustomersController extends Controller
 {
@@ -25,7 +27,7 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        //
+        return view('Customers.create');
     }
 
     /**
@@ -34,9 +36,14 @@ class CustomersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        //
+        $customer = User::create($request->all());
+        $role = Role::where('name', 'Cliente')->first();
+
+        $customer->roles()->attach($role);
+
+        return redirect()->route('clientes.index');
     }
 
     /**
