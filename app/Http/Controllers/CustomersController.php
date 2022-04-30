@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CustomersController extends Controller
@@ -13,7 +14,8 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        //
+        $customers = User::all();
+        return view('Customers.index', get_defined_vars());
     }
 
     /**
