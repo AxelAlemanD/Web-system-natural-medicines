@@ -136,10 +136,11 @@ class SalesController extends Controller
      */
     public function updatePay(Request $request){
         $sale = Sale::findOrFail($request->sale_id);
+        $newAmountPaid = $sale->amount_paid + $request->amount_paid;
 
         $sale->update([
-            'status_id'     => $this->getStatus($request->amount_paid, $request->total_amount),
-            'amount_paid'   => $sale->amount_paid + $request->amount_paid,
+            'status_id'     => $this->getStatus($newAmountPaid, $request->total_amount),
+            'amount_paid'   => $newAmountPaid,
         ]);
 
         return response()->json(202);

@@ -16,7 +16,7 @@
 							<x-field label="Cantidad pendiente" name="total_amount" value="{{$sale->numberToCurrency($sale->total_amount - $sale->amount_paid)}}" type="text" placeholder="$0.00" other="required step=0.01 readonly"/>
 						</div>
 						<div class="row mb-3">
-							<x-field label="Cantidad a pagar" name="amount_paid" value="{{$sale->total_amount - $sale->amount_paid}}" type="number" placeholder="$0.00" other="required step=0.01 id=amount_paid"/>
+							<x-field label="Cantidad a pagar" name="amount_paid" value="{{$sale->total_amount - $sale->amount_paid}}" type="number" placeholder="$0.00" other="required step=0.01 id=amount_paid max={{$sale->total_amount - $sale->amount_paid}}"/>
 						</div>
                         <div class="row pl-5 pr-5 mt-5 pt-5">
 							<button type="submit" class="btn btn-primary" onclick="updatePay(event);">
