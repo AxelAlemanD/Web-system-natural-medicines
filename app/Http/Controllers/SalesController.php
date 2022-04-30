@@ -45,22 +45,12 @@ class SalesController extends Controller
     {
         $total_amount = $this->moneyToNumber($request->total_amount);
 
-        // Get status
-        $status = 3;
-        if ($request->amount_paid <= 0) {
-            $status = 1;
-        } elseif ($request->amount_paid > 0 && $request->amount_paid < $total_amount) {
-            $status = 2;
-        }
-        
-
         $sale = Sale::create([
             'user_id'       => $request->user_id,
             'total_amount'  => $total_amount,
             'amount_paid'   => $request->amount_paid,
-            'status_id'     => $status,
+            'status_id'     => $this->getStatus($request->amount_paid, $total_amount),
         ]);
-
 
         for ($i=0; $i < count($request->products); $i++) { 
             // Add relation
@@ -132,10 +122,41 @@ class SalesController extends Controller
      * @param string $vaule
      * @return double $valueWithoutComas
      */
-    public function moneyToNumber($value) {
+    private function moneyToNumber($value) {
 		$valueWithoutSignDollar = explode("$", $value);
 		$valueWhitoutComas = str_replace(",", "", $valueWithoutSignDollar[1]);
 
 		return (float)$valueWhitoutComas;
 	}
+
+
+    /**
+     * Update current sale payment
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function updatePay(Request $request){
+        $sale = Sale::findOrFail($request->sale_id);
+
+        $sale->update([
+            'status_id'     => $this->getStatus($request->amount_paid, $request->total_amount),
+            'amount_paid'   => $sale->amount_paid + $request->amount_paid,
+        ]);
+
+        return response()->json(202);
+    }
+
+
+    /**
+     * Get sale status
+     * 
+     * @param double $amount_paid
+     * @return integer $status_id
+     */
+    private function getStatus($amount_paid, $total_amount){
+        if ($amount_paid <= 0)
+            return 1;
+        elseif ($amount_paid > 0 && $amount_paid < $total_amount)
+            return 2;
+        return 3;
+    }
 }

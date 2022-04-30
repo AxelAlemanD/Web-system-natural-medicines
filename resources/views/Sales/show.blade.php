@@ -45,6 +45,7 @@
 </div>
 <!-- FIN CABECERA -->
 
+@include('Sales.updatePay') <!-- Include modal payment -->
 
 <!-- CONTENIDO -->
 <div class="row">
