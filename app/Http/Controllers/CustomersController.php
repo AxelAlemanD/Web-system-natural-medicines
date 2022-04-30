@@ -94,6 +94,9 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = User::findOrFail($id);
+        $customer->delete();
+
+        return redirect()->route('clientes.index');
     }
 }
