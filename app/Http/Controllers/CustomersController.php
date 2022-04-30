@@ -67,7 +67,8 @@ class CustomersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $customer = User::findOrFail($id);
+        return view('Customers.create', get_defined_vars());
     }
 
     /**
@@ -77,9 +78,12 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerRequest $request, $id)
     {
-        //
+        $customer = User::findOrFail($id);
+        $customer->update($request->all());
+
+        return redirect()->route('clientes.index');
     }
 
     /**
