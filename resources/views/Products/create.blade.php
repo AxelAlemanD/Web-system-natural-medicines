@@ -116,10 +116,14 @@
 						<select name="categories[]"  class="form-control custom-select select2-multiple @error('categories') is-invalid @enderror" data-placeholder="Agregar categoria"  multiple="multiple">
 							<option label="Agregar etiqueta"></option>
 							@foreach ($categories as $category)
-								@if ($product->categories->contains($category))
-									<option value="{{$category->name}}" selected>{{$category->name}}</option>
-								@else
+								@if (!isset($product))
 									<option value="{{$category->name}}">{{$category->name}}</option>
+								@else
+									@if ($product->categories->contains($category))
+										<option value="{{$category->name}}" selected>{{$category->name}}</option>
+									@else
+										<option value="{{$category->name}}">{{$category->name}}</option>
+									@endif
 								@endif
 							@endforeach
 						</select>
