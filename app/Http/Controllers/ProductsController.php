@@ -98,27 +98,10 @@ class ProductsController extends Controller
         $oldProduct = $product; // Make a copy of the old product
 
 
-        // Add and remove categories
-        foreach ($request->categories as $category) {
-            $category = Category::saveCategory($category);
-            // If the product does not have the category, it is added
-            if (!($product->hasAnyCategory($category->name))) {
-                $product->categories()->attach($category);
-            }
-            // The categories it already contains are removed from the old product
-            $oldProduct->categories = $oldProduct->removeCategory($category);
-        }
-
         // Generate image url
         if ($request->hasFile('url_image')) {
             $image = Product::saveImage($request->file('url_image'));
             $request->merge(['url_image' => $image['filename']]);
-        }
-
-
-        // Remove relation
-        foreach ($oldProduct->categories as $category) {
-            $category->pivot->delete();
         }
 
         // Update product information
@@ -135,6 +118,23 @@ class ProductsController extends Controller
         }
 
         $product->save();
+
+        
+        // Add and remove categories
+        foreach ($request->categories as $category) {
+            $category = Category::saveCategory($category);
+            // If the product does not have the category, it is added
+            if (!($product->hasAnyCategory($category->name))) {
+                $product->categories()->attach($category);
+            }
+            // The categories it already contains are removed from the old product
+            $oldProduct->categories = $oldProduct->removeCategory($category);
+        }
+
+        // Remove relation
+        foreach ($oldProduct->categories as $category) {
+            $category->pivot->delete();
+        }
 
         return redirect()->route('productos.index');
     }
