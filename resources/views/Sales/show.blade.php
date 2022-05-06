@@ -16,7 +16,7 @@
 	<div class="page-rightheader">
         <div class="align-items-end flex-wrap my-auto right-content breadcrumb-right">
             <div class="btn-list d-flex">
-				<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createPublication">
+				<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updatePay">
                     <i class="text-primary">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
 							<path d="M12 20h9"></path>
@@ -25,6 +25,15 @@
 					</i>
                     Actualizar pago
                 </button>
+				<a href="{{route('ventas.edit', $sale->id)}}" class="btn btn-outline-warning">
+					<i class="text-warning">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
+							<path d="M12 20h9"></path>
+							<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+						</svg>
+					</i>
+					Editar venta
+				</a>
 				<form action="{{route('ventas.destroy', $sale->id)}}" method="post">
 					@csrf
 					@method('DELETE')
