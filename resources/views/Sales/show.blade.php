@@ -13,31 +13,24 @@
         </ul>
     </div>
 
-	<div class="page-rightheader">
+	<div class="page-rightheader" style="margin-top: -7%">
         <div class="align-items-end flex-wrap my-auto right-content breadcrumb-right">
             <div class="btn-list d-flex">
+				{{-- Actualizar pago --}}
 				<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updatePay">
                     <i class="text-primary">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
-							<path d="M12 20h9"></path>
-							<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign">
+							<line x1="12" y1="1" x2="12" y2="23"></line>
+							<path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
 						</svg>
 					</i>
                     Actualizar pago
                 </button>
-				<a href="{{route('ventas.edit', $sale->id)}}" class="btn btn-outline-warning">
-					<i class="text-warning">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
-							<path d="M12 20h9"></path>
-							<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-						</svg>
-					</i>
-					Editar venta
-				</a>
-				<form action="{{route('ventas.destroy', $sale->id)}}" method="post">
+				{{-- Eliminar venta --}}
+				{{-- <form action="{{route('ventas.destroy', $sale->id)}}" method="post">
 					@csrf
 					@method('DELETE')
-					<button class="action-btns1 ml-4" data-toggle="tooltip" data-placement="top" title="Eliminar" type="submit" style="background: none">
+					<button class="btn ml-4" data-toggle="tooltip" data-placement="top" title="Eliminar" type="submit" style="background: none">
 						<i class="text-danger text-center">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
 								<polyline points="3 6 5 6 21 6"></polyline>
@@ -47,7 +40,7 @@
 							</svg>
 						</i>
 					</button>
-				</form>
+				</form> --}}
             </div>
         </div>
     </div>
@@ -59,8 +52,19 @@
 <!-- CONTENIDO -->
 <div class="row">
 	<div class="col-xl-12 col-md-12 col-lg-12">
-		{{-- INFORMACIÓN DEL CLIENTE --}}
-		<h4 class="font-weight-bold">Información del cliente</h4>
+		<div class="d-flex">
+			{{-- INFORMACIÓN DEL CLIENTE --}}
+			<h4 class="font-weight-bold">Información del cliente</h4>
+			{{-- Cambiar cliente --}}
+			<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#changeClient" title="Cambiar cliente" style="margin-top: -3%">
+				<i class="text-primary">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
+						<path d="M12 20h9"></path>
+						<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+					</svg>
+				</i>
+			</button>
+		</div>
 		{{-- Nombre --}}
 		<div class="row mt-3">
 			<div class="col">
@@ -102,10 +106,10 @@
 		</div>
 		{{-- Lista de productos --}}
 		<div class="row mt-5">
-			<div class="row">
+			<div class="row mb-7">
 				<h4 class="font-weight-bold mt-7 text-center">Lista de productos</h4>
-				<div class="table-responsive">
-                    <table class="table table-vcenter text-wrap border-bottom" id="project-list">
+				<div class="table-responsive mb-7">
+                    <table class="table table-vcenter text-wrap border-bottom mb-7" id="project-list">
 						<thead>
 							<th>Producto</th>
 							<th>Cantidad</th>
@@ -133,7 +137,19 @@
 										{{$product->getTotal($product->pivot->quantity)}}
 									</td>
 									<td>
-										<a href="{{route('productos.show', $product->id)}}" class="action-btns1" data-toggle="tooltip" data-placement="top" title="Ver">
+										<div class="d-flex">
+											{{-- Devolver producto --}}
+											<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#returnProduct" title="Devolver producto">
+												<i class="text-success">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rotate-ccw">
+														<polyline points="1 4 1 10 7 10"></polyline>
+														<path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+													</svg>
+												</i>
+											</button>
+										</div>
+										{{-- Ver producto --}}
+										<a href="{{route('productos.show', $product->id)}}" class="btn" data-toggle="tooltip" data-placement="top" title="Ver producto" class="btn">
 											<i class="text-primary">
 												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
 													<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
