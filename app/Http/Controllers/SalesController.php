@@ -185,7 +185,7 @@ class SalesController extends Controller
      * cChange the customer to which the sale belongs
      * @param  \Illuminate\Http\Request  $request
      * @param  integer $id
-     * @return response 202
+     * @return response $customer
      */
     public function changeCustomer(Request $request, $id){
         $sale = Sale::findOrFail($id);
@@ -194,5 +194,46 @@ class SalesController extends Controller
         $sale->update(['user_id' => $request->new_customer]);
         
         return response()->json(['customer' => $customer]);
+    }
+
+
+    /**
+     * Return a product from a sale
+     * @param  \Illuminate\Http\Request  $request
+     * @param  integer $id
+     * @return response 202
+     */
+    public function returnProduct(Request $request, $id){
+        $sale           = Sale::findOrFail($id);
+        $product        = Product::findOrFail($request->product_id);
+        $new_quantity   = $request->current_quantity - $request->refund_amount;
+        $url            = null;
+
+        // Modify product quantity
+        if ($new_quantity > 0) {
+            $sale->updateProductQuantity($request->product_id, $new_quantity);
+        } else {
+            $sale->removeProduct($request->product_id);
+        }
+
+        // If the sale has no products it is deleted
+        if (count($sale->products) <= 0) {
+            $sale->delete();
+            $url = route('ventas.index');
+        }
+        // else update cost of sale
+        else{
+            $new_total = 0;
+            foreach ($sale->products as $product) {
+                $new_total += $product->pivot->quantity * $product->price;
+            }
+            $sale->update(['total_amount' => $new_total]);
+        }
+        
+        // Updates the available quantity of the product in the inventory
+        $product->update(['quantity' => $product->quantity + $request->refund_amount]);
+
+
+        return response()->json(['url' => $url]);
     }
 }

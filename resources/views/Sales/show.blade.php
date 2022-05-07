@@ -49,6 +49,7 @@
 
 @include('Sales.updatePay') <!-- Include modal payment -->
 @include('Sales.changeCustomer') <!-- Include modal to change customer -->
+@include('Sales.returnProduct') <!-- Include modal to change customer -->
 
 <!-- CONTENIDO -->
 <div class="row">
@@ -128,19 +129,19 @@
 											</div>
 										</div>
 									</td>
-                            	    <td>
-                            	        {{$product->getPrice()}}
-                            	    </td>
 									<td>
 										{{$product->pivot->quantity}}
 									</td>
+                            	    <td>
+                            	        {{$product->getPrice()}}
+                            	    </td>
 									<td>
 										{{$product->getTotal($product->pivot->quantity)}}
 									</td>
 									<td>
 										<div class="d-flex">
 											{{-- Devolver producto --}}
-											<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#returnProduct" title="Devolver producto">
+											<button type="button" class="btn" id="btnReturnProduct" data-bs-toggle="modal" data-bs-target="#returnProduct" title="Devolver producto" data-product-id={{$product->id}} data-product-quantity={{$product->pivot->quantity}} onclick="loadProductOnModal(event);">
 												<i class="text-success">
 													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rotate-ccw">
 														<polyline points="1 4 1 10 7 10"></polyline>

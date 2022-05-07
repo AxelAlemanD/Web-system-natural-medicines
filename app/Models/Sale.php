@@ -71,4 +71,18 @@ class Sale extends Model
             print($product->pivot->quantity.' '.$product->name.', ');
         }
     }
+
+    /**
+     * Remove product from sale
+     */
+    public function removeProduct($product_id){
+        $this->products()->detach($product_id);
+    }
+
+    /**
+     * Update product quantity in current sale
+     */
+    public function updateProductQuantity($product_id, $quantity){
+        $this->products()->updateExistingPivot($product_id, ['quantity' => $quantity]);
+    }
 }
