@@ -48,6 +48,7 @@
 <!-- FIN CABECERA -->
 
 @include('Sales.updatePay') <!-- Include modal payment -->
+@include('Sales.changeCustomer') <!-- Include modal to change customer -->
 
 <!-- CONTENIDO -->
 <div class="row">
@@ -56,7 +57,7 @@
 			{{-- INFORMACIÓN DEL CLIENTE --}}
 			<h4 class="font-weight-bold">Información del cliente</h4>
 			{{-- Cambiar cliente --}}
-			<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#changeClient" title="Cambiar cliente" style="margin-top: -3%">
+			<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#changeCustomer" title="Cambiar cliente" style="margin-top: -3%">
 				<i class="text-primary">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
 						<path d="M12 20h9"></path>
@@ -69,21 +70,21 @@
 		<div class="row mt-3">
 			<div class="col">
 				<label class="fs-14">Nombre del cliente</label>
-				<h5 class="font-weight-bold">{{$sale->user->getFullName()}}</h5>
+				<h5 class="font-weight-bold" id="customerName">{{$sale->user->getFullName()}}</h5>
 			</div>
 		</div>
 		{{-- Numero de telefono --}}
 		<div class="row mt-3">
 			<div class="col">
 				<label class="fs-14">Número de telefono</label>
-				<h5 class="font-weight-bold">{{$sale->user->phone_number}}</h5>
+				<h5 class="font-weight-bold" id="customerPhoneNumber">{{$sale->user->phone_number}}</h5>
 			</div>
 		</div>
 		{{-- Direccion --}}
 		<div class="row mt-3">
 			<div class="col">
 				<label class="fs-14">Dirección</label>
-				<h5 class="font-weight-bold">{{$sale->user->address}}</h5>
+				<h5 class="font-weight-bold" id="customerAddress">{{$sale->user->address}}</h5>
 			</div>
 		</div>
 

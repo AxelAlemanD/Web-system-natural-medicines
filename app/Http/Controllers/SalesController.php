@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\Sale;
+use App\Models\User;
 use App\Models\Product;
 use App\Http\Requests\SaleRequest;
 use Illuminate\Http\Request;
@@ -90,7 +91,13 @@ class SalesController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $sale = Sale::findOrFail($id);
+        
+        // $products = Product::all();
+        // $rol = Role::where('name', 'Cliente')->first();
+        // $customers = $rol->users;
+        
+        // return view('Sales.create', get_defined_vars());
     }
 
     /**
@@ -159,5 +166,33 @@ class SalesController extends Controller
         elseif ($amount_paid > 0 && $amount_paid < $total_amount)
             return 2;
         return 3;
+    }
+
+
+    /**
+     * Get all customers users
+     * @param  \Illuminate\Http\Request  $request
+     * @return json $customers
+     */
+    public function getCustomers(Request $request){
+        $rol = Role::where('name', 'Cliente')->first();
+        $customers = $rol->users;
+
+        return response()->json(['customers' => $customers]);
+    }
+
+    /**
+     * cChange the customer to which the sale belongs
+     * @param  \Illuminate\Http\Request  $request
+     * @param  integer $id
+     * @return response 202
+     */
+    public function changeCustomer(Request $request, $id){
+        $sale = Sale::findOrFail($id);
+        $customer = User::findOrFail($request->new_customer);
+
+        $sale->update(['user_id' => $request->new_customer]);
+        
+        return response()->json(['customer' => $customer]);
     }
 }
