@@ -146,7 +146,7 @@ class SalesController extends Controller
         $newAmountPaid = $sale->amount_paid + $request->amount_paid;
 
         $sale->update([
-            'status_id'     => $this->getStatus($newAmountPaid, $request->total_amount),
+            'status_id'     => $this->getStatus($newAmountPaid, $sale->total_amount),
             'amount_paid'   => $newAmountPaid,
         ]);
 
@@ -165,7 +165,8 @@ class SalesController extends Controller
             return 1;
         elseif ($amount_paid > 0 && $amount_paid < $total_amount)
             return 2;
-        return 3;
+        else
+            return 3;
     }
 
 

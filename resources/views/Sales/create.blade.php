@@ -123,7 +123,7 @@
 			<div class="row text-center mt-7">
 				<h4 class="font-weight-bold">Lista de productos</h4>
 			</div>
-			<div class="row mt-4">
+			<div class="row mt-4 mb-5">
 				<div class="table-responsive">
 					<table class="table  text-wrap border-bottom table-borderless" id="mytable">
 						<thead>
@@ -162,19 +162,22 @@
 							</tr>
 						</tbody>
 					</table>
-
+				</div>
+			</div>
+			<div class="row mb-5">
+				<div class="col-4">
+					{{-- Agregar producto --}}
 					<button type="button" class="btn btn-outline-info mr-2" onclick="addProduct(event)" id="btnAddProduct">Agregar producto</button>
-
-					<div class="row text-center">
-						<h6 class="mb-1 fs-17 text-muted">Total:</h6>
-						<input class="form-control mb-md-1 mb-5 fs-17 text-center" id="totalSale" name="total_amount" value="$0.00" readonly style="background: none; padding: 3%">
-					</div>
-					<div class="row">
-						{{-- Nombre --}}
-						<div class="col">
-							<x-field label="Cantidad pagada" name="amount_paid" value="{{old('amount_paid')}}" type="number" placeholder="$0.00" other="required step=0.01"/>
-						</div>
-					</div>
+				</div>
+			</div>
+			<div class="row text-center mb-5">
+				<h6 class="mb-1 fs-17 text-muted">Total:</h6>
+				<input class="form-control mb-md-1 mb-5 fs-17 text-center" id="totalSale" name="total_amount" value="$0.00" readonly style="background: none; padding: 3%">
+			</div>
+			<div class="row">
+				{{-- Nombre --}}
+				<div class="col">
+					<x-field label="Cantidad pagada" name="amount_paid" value="{{old('amount_paid')}}" type="number" placeholder="$0.00" other="required step=0.01"/>
 				</div>
 			</div>
 			<div class="card-footer">
