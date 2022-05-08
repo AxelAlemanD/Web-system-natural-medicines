@@ -64,7 +64,7 @@
 			<div class="col">
 				@isset($product->categories)
 					@foreach ($product->categories as $category)
-						<span class="badge bg-success-transparent border border-success rounded-pill">{{$category->name}}</span>    
+						<span class="badge bg-primary-transparent border border-primary rounded-pill">{{$category->name}}</span>    
 					@endforeach
 				@endisset
 			</div>
