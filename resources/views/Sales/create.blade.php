@@ -140,7 +140,12 @@
 								<td width="70%" style="height: 150px;">
 										<select name="products[]" class="form-control productos" onchange="getCostProduct(event);" required style="width: 100%">
 											@foreach ($products as $product)
-												<option data-img_src="{{asset($product->url_image)}}" value="{{$product->id}}" class="productosVenta">{{$product->name}} $ {{$product->description}}</option>
+												@if ($product->quantity <= 0)
+													<option data-img_src="{{asset($product->url_image)}}" value="{{$product->id}}" class="productosVenta" disabled>{{$product->name}} $ No disponible</option>
+												@else
+													{{-- <option data-img_src="{{asset($product->url_image)}}" value="{{$product->id}}" class="productosVenta">{{$product->name}} $ {{$product->description}}</option> --}}
+													<option data-img_src="{{asset($product->url_image)}}" value="{{$product->id}}" class="productosVenta">{{$product->name}} $ Disponible: {{$product->quantity}}</option>
+												@endif
 									   		@endforeach
 										<option value="-1" class="text-muted" selected disabled>Selecciona un producto</option>
 									</select>
@@ -253,8 +258,13 @@ function addProduct(event){
 	nuevaFila.innerHTML 	=	'<td width="70%" style="height: 150px;">'+
 								'		<select name="products[]" class="form-control productos" onchange="getCostProduct(event);" required style="width: 100%">'+
 								'			@foreach ($products as $product)'+
-								'				<option data-img_src="{{asset($product->url_image)}}" value="{{$product->id}}" class="productosVenta">{{$product->name}} $ {{$product->description}}</option>'+
-								'	   		@endforeach'+
+								'				@if ($product->quantity <= 0)'+
+								'					<option data-img_src="{{asset($product->url_image)}}" value="{{$product->id}}" class="productosVenta" disabled>{{$product->name}} $ No disponible</option>'+
+								'				@else'+
+								'					{{-- <option data-img_src="{{asset($product->url_image)}}" value="{{$product->id}}" class="productosVenta">{{$product->name}} $ {{$product->description}}</option> --}}'+
+								'					<option data-img_src="{{asset($product->url_image)}}" value="{{$product->id}}" class="productosVenta">{{$product->name}} $ Disponible: {{$product->quantity}}</option>'+
+								'				@endif'+
+								'			@endforeach'+
 								'		<option value="-1" class="text-muted" selected disabled>Selecciona un producto</option>'+
 								'	</select>'+
 								'</td>'+
