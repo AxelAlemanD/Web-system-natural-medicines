@@ -76,7 +76,7 @@
                     <table class="table table-vcenter text-wrap border-bottom" id="project-list">
 						<thead>
 							<td colspan="4">
-								<h5 class="font-weight-bold text-center">Historial de ventas</h5>
+								<h5 class="font-weight-bold text-center">Historial de compras</h5>
 							</td>
 						</thead>
                         <tbody>
