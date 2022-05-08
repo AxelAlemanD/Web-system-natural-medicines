@@ -29,10 +29,10 @@
         <a href="{{route('productos.show', $product->id)}}">
             <div class="row border-bottom mb-3">
                 <div class="row d-flex">
-                    <div class="col-2" style="margin-right: -7%;">
+                    <div class="col-3 col-lg-2" style="margin-right: -7%;">
                             <img src="{{asset($product->url_image)}}"  class="avatar avatar-xxl bradius mr-3">
                     </div>
-                    <div class="col-10 d-block">
+                    <div class="col-9 col-lg-10 d-block">
                         <h6 class="mb-1 font-weight-bold">{{$product->name}}</h6>
                         <p class="mb-0 fs-12">{{$product->description}}</p>
                         <div class="mt-3">
