@@ -15,7 +15,7 @@
 				</div>
 			</div>
 			<div class="col-6 text-center">
-				<h4 class="mt-3">Inicio</h4>
+				<h4 class="mt-3 mb-0">Inicio</h4>
 			</div>
 			<div class="col-3">
 				<div class="d-flex order-lg-2 my-auto ml-auto float-right">

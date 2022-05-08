@@ -36,7 +36,7 @@
 
 			{{-- Productos --}}
 			<li class="slide">
-				<a class="side-menu__item" data-toggle="slide" href="#" id="products">
+				<a class="side-menu__item {{ Request::is('productos') ? 'active' : '' }}"" data-toggle="slide" href="{{route('productos.index')}}" id="products">
 					<i class="sidemenu_icon">
 						<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							 width="20" height="20" viewBox="0 0 79.542 79.542" style="enable-background:new 0 0 79.542 79.542;"

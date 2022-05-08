@@ -19,6 +19,11 @@
         <link  href="{{ asset('css/sidemenu.css') }}" rel="stylesheet">
 		<!-- P-scroll bar css: Desplazamiento en panel de navegación-->
 		<link href="{{ asset('plugins/p-scrollbar/p-scrollbar.css') }}" rel="stylesheet" />
+		<!-- Fuente Poppins -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+		<!-- Select2 css -->
+		<link href="{{ asset('plugins/select2/select2.min.css') }}" rel="stylesheet" />
 
         @yield('extra-css')
 	</head>
@@ -38,7 +43,7 @@
                     <x-navbar />
                     <!--/app header-->
 						<!--Content-->
-						@yield('contenido')
+						@yield('content')
 						<!--/Content-->
 					</div>
 				</div>
@@ -54,6 +59,8 @@
 		<script src="{{ asset('plugins/p-scrollbar/p-scroll1.js') }}"></script>
 		<!-- Custom js-->
 		<script src="{{ asset('js/custom.js') }}"></script>
+		<!-- Select2 js -->
+		<script src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
 
 		@yield('extra-script')
 	</body>

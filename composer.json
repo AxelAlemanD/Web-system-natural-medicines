@@ -44,6 +44,13 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "start-server":[
+            "php artisan serve --host=192.168.0.10 --port=8000"
+        ],
+        "clean-db":[
+            "php artisan db:wipe",
+            "php artisan migrate --seed"
         ]
     },
     "extra": {
