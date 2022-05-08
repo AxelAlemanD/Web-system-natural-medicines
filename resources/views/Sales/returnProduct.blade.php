@@ -20,7 +20,7 @@
 				    			<x-field label="Productos comprados" name="quantity" value="" type="number" placeholder="Cantidad" other="readonly id=currentProductQuantity"/>
 				    		</div>
 				    		<div class="row mb-3" id="divRefundAmount">
-                                <x-field label="Cantidad devuelta" name="refundAmount" value="" type="number" placeholder="Ingresa la cantidad que fue devuelta" other="id=refundAmount min=1"/>
+                                <x-field label="Cantidad devuelta" name="refundAmount" value="1" type="number" placeholder="Ingresa la cantidad que fue devuelta" other="id=refundAmount min=1"/>
 				    		</div>
                             <div class="row pl-5 pr-5 mt-5 pt-5">
 				    			<button type="submit" class="btn btn-primary" onclick="returnProduct(event);">
