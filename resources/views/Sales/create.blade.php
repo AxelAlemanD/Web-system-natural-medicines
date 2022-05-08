@@ -183,8 +183,7 @@
 			<div class="card-footer">
 				<div class="row">
 					<button type="submit" class="btn btn-primary btn-lg btn-block" id="enviar">
-						<i class="feather feather-save sidemenu_icon"></i>
-						Guardar
+						Realizar venta
 					</button>
 				</div>
 			</div>
@@ -218,10 +217,10 @@
 		productos.forEach( function(producto, indice, array) {
 			if(selectedProduct.value == producto.id){
 				try {
+					defineMaxQuantity(producto, quantity);
 					priceProduct.innerText	= numberToMoney(producto.price);
 					totalAmount.innerText	= numberToMoney(quantity.value * producto.price);
 					totalCostSale();
-					defineMaxQuantity(producto, quantity);
 				} catch (error) {
 				}
 			}
@@ -235,6 +234,9 @@
 	*/
 	function defineMaxQuantity(product, quantityInput){
 		quantityInput.setAttribute('max', product.quantity);
+		if (parseInt(quantityInput.value, 10) > product.quantity) {
+			quantityInput.value = product.quantity;
+		}
 	}
 
 
