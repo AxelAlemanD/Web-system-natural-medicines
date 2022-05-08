@@ -75,7 +75,7 @@
 					@else
 						<x-field label="Nombre" name="name" value="{{$product->name}}" type="text" placeholder="Ingresa nombre de producto" other="required"/>
 					@endif
-					
+
 				</div>
 			</div>
 			<div class="row">
