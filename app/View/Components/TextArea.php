@@ -38,19 +38,27 @@ class TextArea extends Component
      */
     public $placeholder;
 
+    /**
+     * The textarea events attributes.
+     *
+     * @var string
+     */
+    public $other;
+
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($label, $name, $content, $rows, $placeholder)
+    public function __construct($label, $name, $content, $rows, $placeholder, $other = null)
     {
-        $this->label = $label;
-        $this->name = $name;
-        $this->content = $content;
-        $this->rows = $rows;
-        $this->placeholder = $placeholder;
+        $this->label        = $label;
+        $this->name         = $name;
+        $this->content      = $content;
+        $this->rows         = $rows;
+        $this->placeholder  = $placeholder;
+        $this->other        = $other;
     }
 
     /**
