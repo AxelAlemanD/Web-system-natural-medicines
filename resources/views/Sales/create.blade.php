@@ -175,16 +175,38 @@
 					<button type="button" class="btn btn-outline-info mr-2" onclick="addProduct(event)" id="btnAddProduct">Agregar producto</button>
 				</div>
 			</div>
+
 			<div class="row text-center mb-5">
+				{{-- Total a pagar --}}
 				<h6 class="mb-1 fs-17 text-muted">Total:</h6>
-				<input class="form-control mb-md-1 mb-5 fs-17 text-center" id="totalSale" name="total_amount" value="$0.00" readonly style="background: none; padding: 3%">
+				<input class="form-control mb-md-1 mb-5 fs-17 text-center" id="totalSale" name="total_amount" value="$0.00" readonly style="background: none; padding: 3%; border:none;">
 			</div>
-			<div class="row">
-				{{-- Nombre --}}
+			{{-- <div class="row">
+				Catidad pagada
 				<div class="col">
-					<x-field label="Cantidad pagada" name="amount_paid" value="{{old('amount_paid')}}" type="number" placeholder="$0.00" other="required step=0.01"/>
+					<x-field label="Cantidad pagada" name="amount_paid" value="{{old('amount_paid')}}" type="number" placeholder="$0.00" other="required step=0.01 onchange=getChangeOrPending(event); onkeyup=getChangeOrPending(event);"/>
 				</div>
+			</div> --}}
+			<div class="row text-center mb-5">
+				{{-- Total a pagar --}}
+				<h6 class="mb-1 fs-17 text-muted">Cantidad pagada:</h6>
+				<input class="form-control @error("amount_paid") is-invalid @enderror" placeholder="$0.00" name="amount_paid" type="number" value='{{old('amount_paid')}}' required step="0.01" onchange="getChangeOrPending(event);" onkeyup="getChangeOrPending(event);" style="background: none; padding: 3%; text-align: center;">
+    			@error("amount_paid")
+    			    <span class="invalid-feedback" role="alert">
+    			        {{ $message }}
+    			    </span>
+    			@enderror
+				{{-- <input class="form-control mb-md-1 mb-5 fs-17 text-center" id="totalSale" name="total_amount" value="$0.00" readonly style="background: none; padding: 3%"> --}}
 			</div>
+
+			{{-- Cambio o pendiente --}}
+			<div class="row text-center mb-5">
+				{{-- <label class="form-label" id="titleChangeOrPending">Cambio</label> --}}
+				<h6 class="mb-1 fs-17 text-muted" id="titleChangeOrPending">Cambio</h6>
+				{{-- <input class="form-control" id="amountChangeOrPending" value="$0.00" readonly> --}}
+				<input class="form-control mb-md-1 mb-5 fs-17 text-center" id="amountChangeOrPending" value="$0.00" readonly style="background: none; padding: 3%; border:none;">
+			</div>
+
 			<div class="card-footer">
 				<div class="row">
 					<button type="submit" class="btn btn-primary btn-lg btn-block" id="enviar">
@@ -320,6 +342,32 @@ function totalCostSale() {
 		sum += moneyToNumber(amounts[i].innerText);
 	}
 	total.value = numberToMoney(sum);
+}
+
+/**
+ * Gets the amount to return or the pending amount to complete the payment
+*/
+function getChangeOrPending(event){
+	let title	= document.querySelector('#titleChangeOrPending');
+	let amount	= document.querySelector('#amountChangeOrPending');
+	let paid	= parseInt(document.querySelector('[name="amount_paid"]').value, 10);
+	let total	= moneyToNumber(document.querySelector('[name="total_amount"]').value);
+
+	if(paid < total){
+		title.innerText = 'Debe';
+		amount.value = numberToMoney(total - paid);
+		amount.style.color = 'red';
+	}
+	else if(paid == total){
+		title.innerText = 'Pagado';
+		amount.value = numberToMoney(total - paid);
+		amount.style.color = '#263871';
+	}
+	else{
+		title.innerText = 'Cambio';
+		amount.value = numberToMoney(Math.abs(total - paid));
+		amount.style.color = 'green';
+	}
 }
 </script>
 

@@ -46,6 +46,11 @@ class SalesController extends Controller
     {
         $total_amount = $this->moneyToNumber($request->total_amount);
 
+        // If the amount paid is greater than the total of the sale, the total of the sale is assigned
+        if($request->amount_paid > $total_amount){
+            $request->amount_paid = $total_amount;
+        }
+
         $sale = Sale::create([
             'user_id'       => $request->user_id,
             'total_amount'  => $total_amount,
