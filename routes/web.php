@@ -16,11 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
-
-
+Route::get('/', function () {return view('dashboard');})->name('/');
 Route::resource('productos', ProductsController::class);
 Route::resource('clientes', CustomersController::class);
 Route::resource('ventas', SalesController::class);
