@@ -61,6 +61,8 @@
 		<script src="{{ asset('js/custom.js') }}"></script>
 		<!-- Select2 js -->
 		<script src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
+		<!--Chartjs-->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 		@yield('extra-script')
 	</body>
