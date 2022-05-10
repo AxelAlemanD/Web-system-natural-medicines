@@ -143,96 +143,102 @@
                 <div class="row pb-3 pt-3">
                     {{-- PRODUCTO MAS VENDIDO --}}
                     <div class="col-xl-4 col-8 bg-white shadow-sm mr-5" style="border-radius: 5%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-4 position-absolute" style="top:.5%;left:-.5%;">
-                                    <span class="badge bg-danger border border-danger rounded-pill">🔥 Más vendido</span>
+                        <a href="{{route('productos.show', $mostPurchasedProduct->id)}}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-4 position-absolute" style="top:.5%;left:-.5%;">
+                                        <span class="badge bg-danger border border-danger rounded-pill">🔥 Más vendido</span>
+                                    </div>
+
+                                    <img class="mw-100" src="{{asset($mostPurchasedProduct->url_image)}}" style="border-radius: 8%">
+                                </div>
+                                <div class="row mt-5">
+                                    <h6 class="font-weight-bold">{{$mostPurchasedProduct->name}}</h6>
+                                    <p class="text-muted">{{$mostPurchasedProduct->description}}</p>
                                 </div>
 
-                                <img class="mw-100" src="{{asset($mostPurchasedProduct->url_image)}}" style="border-radius: 8%">
+                                <div class="row">
+                                    <p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                        {{$mostPurchasedProduct->likes_count}} Me gusta
+                                    </p>
+                                </div>
+                                <div class="row mt-3">
+                                    <h3 class="text-primary">{{$mostPurchasedProduct->getPrice()}}</h3>
+                                </div>
+                                <div class="row text-right">
+                                    <p class="text-muted">Comprado {{$mostPurchasedProduct->sales_count}} veces</p>
+                                </div>
                             </div>
-                            <div class="row mt-5">
-                                <h6 class="font-weight-bold">{{$mostPurchasedProduct->name}}</h6>
-                                <p class="text-muted">{{$mostPurchasedProduct->description}}</p>
-                            </div>
-
-                            <div class="row">
-                                <p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
-                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                    </svg>
-                                    {{$mostPurchasedProduct->likes_count}} Me gusta
-                                </p>
-                            </div>
-                            <div class="row mt-3">
-                                <h3 class="text-primary">{{$mostPurchasedProduct->getPrice()}}</h3>
-                            </div>
-                            <div class="row text-right">
-                                <p class="text-muted">Comprado {{$mostPurchasedProduct->sales_count}} veces</p>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                     {{-- PRODUCTO MAS COMENTADO --}}
                     <div class="col-xl-4 col-8 bg-white shadow-sm mr-5" style="border-radius: 5%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-4 position-absolute" style="top:.5%;left:-.5%;">
-                                    <span class="badge bg-secondary border border-secondary rounded-pill">💬 Más comentado</span>
+                        <a href="{{route('productos.show', $mostCommentedProduct->id)}}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-4 position-absolute" style="top:.5%;left:-.5%;">
+                                        <span class="badge bg-secondary border border-secondary rounded-pill">💬 Más comentado</span>
+                                    </div>
+
+                                    <img class="mw-100" src="{{asset($mostCommentedProduct->url_image)}}" style="border-radius: 8%">
+                                </div>
+                                <div class="row mt-5">
+                                    <h6 class="font-weight-bold">{{$mostCommentedProduct->name}}</h6>
+                                    <p class="text-muted">{{$mostCommentedProduct->description}}</p>
                                 </div>
 
-                                <img class="mw-100" src="{{asset($mostCommentedProduct->url_image)}}" style="border-radius: 8%">
+                                <div class="row">
+                                    <p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                        {{$mostCommentedProduct->likes_count}} Me gusta
+                                    </p>
+                                </div>
+                                <div class="row mt-3">
+                                    <h3 class="text-primary">{{$mostCommentedProduct->getPrice()}}</h3>
+                                </div>
+                                <div class="row text-right">
+                                    <p class="text-muted">Comentado {{$mostCommentedProduct->comments_count}} veces</p>
+                                </div>
                             </div>
-                            <div class="row mt-5">
-                                <h6 class="font-weight-bold">{{$mostCommentedProduct->name}}</h6>
-                                <p class="text-muted">{{$mostCommentedProduct->description}}</p>
-                            </div>
-
-                            <div class="row">
-                                <p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
-                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                    </svg>
-                                    {{$mostCommentedProduct->likes_count}} Me gusta
-                                </p>
-                            </div>
-                            <div class="row mt-3">
-                                <h3 class="text-primary">{{$mostCommentedProduct->getPrice()}}</h3>
-                            </div>
-                            <div class="row text-right">
-                                <p class="text-muted">Comentado {{$mostCommentedProduct->comments_count}} veces</p>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                     {{-- PRODUCTO MEJOR CALIFICADO --}}
                     <div class="col-xl-4 col-8 bg-white shadow-sm mr-5" style="border-radius: 5%;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-4 position-absolute" style="top:.5%;left:-.5%;">
-                                    <span class="badge bg-primary border border-primary rounded-pill">❤ Más calificado</span>
+                        <a href="{{route('productos.show', $mostlikedProduct->id)}}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-4 position-absolute" style="top:.5%;left:-.5%;">
+                                        <span class="badge bg-primary border border-primary rounded-pill">❤ Más calificado</span>
+                                    </div>
+
+                                    <img class="mw-100" src="{{asset($mostlikedProduct->url_image)}}" style="border-radius: 8%">
+                                </div>
+                                <div class="row mt-5">
+                                    <h6 class="font-weight-bold">{{$mostlikedProduct->name}}</h6>
+                                    <p class="text-muted">{{$mostlikedProduct->description}}</p>
                                 </div>
 
-                                <img class="mw-100" src="{{asset($mostlikedProduct->url_image)}}" style="border-radius: 8%">
+                                <div class="row">
+                                    <p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                        {{$mostlikedProduct->likes_count}} Me gusta
+                                    </p>
+                                </div>
+                                <div class="row mt-3">
+                                    <h3 class="text-primary">{{$mostlikedProduct->getPrice()}}</h3>
+                                </div>
+                                <div class="row text-right">
+                                    <p class="text-muted">A {{$mostlikedProduct->likes_count}} personas les gusta</p>
+                                </div>
                             </div>
-                            <div class="row mt-5">
-                                <h6 class="font-weight-bold">{{$mostlikedProduct->name}}</h6>
-                                <p class="text-muted">{{$mostlikedProduct->description}}</p>
-                            </div>
-
-                            <div class="row">
-                                <p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
-                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                    </svg>
-                                    {{$mostlikedProduct->likes_count}} Me gusta
-                                </p>
-                            </div>
-                            <div class="row mt-3">
-                                <h3 class="text-primary">{{$mostlikedProduct->getPrice()}}</h3>
-                            </div>
-                            <div class="row text-right">
-                                <p class="text-muted">A {{$mostlikedProduct->likes_count}} personas les gusta</p>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
