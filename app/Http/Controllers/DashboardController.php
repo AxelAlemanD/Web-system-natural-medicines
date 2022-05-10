@@ -15,9 +15,9 @@ class DashboardController extends Controller
     
         $totalSalesOfTheMonth       = Sale::whereBetween('updated_at', [$start, $end])->count();
         $totalEarningsOfTheMonth    = $this->numberToMoney(Sale::whereBetween('updated_at', [$start, $end])->sum('amount_paid'));
-        $mostPurchasedProduct       = Product::withCount('sales')->orderBy('sales_count', 'desc')->first();
+        $mostPurchasedProduct       = Product::withCount('sales', 'likes')->orderBy('sales_count', 'desc')->first();
         $mostlikedProduct           = Product::withCount('likes')->orderBy('likes_count', 'desc')->first();
-        $mostCommentedProduct       = Product::withCount('comments')->orderBy('comments_count', 'desc')->first();
+        $mostCommentedProduct       = Product::withCount('comments', 'likes')->orderBy('comments_count', 'desc')->first();
         $earningsOfTheYear          = $this->get_earnings_of_the_year();
         $month                      = Carbon::now()->locale('es'); // Get month name in spanish
 
