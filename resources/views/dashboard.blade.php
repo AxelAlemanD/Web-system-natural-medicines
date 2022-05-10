@@ -82,8 +82,8 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="mt-0 text-left"> <h5 class="font-weight-bold">Ganancias del mes</h5>
-                                            <p>Monto ganado en el mes de Noviembre</p>
-                                            <h3 class="mb-0 mt-1 mb-2">$25,512.50</h3>
+                                            <p>Monto ganado en el mes de {{$month->monthName}}</p>
+                                            <h3 class="mb-0 mt-1 mb-2">{{$totalEarningsOfTheMonth}}</h3>
                                         </div>
                                     </div>
                                     <div class="col-4 d-flex justify-content-center align-items-center">
@@ -105,8 +105,8 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="mt-0 text-left"> <h5 class="font-weight-bold">Ventas del mes</h5>
-                                            <p>Ventas realizadas en el mes de Noviembre</p>
-                                            <h3 class="mb-0 mt-1 mb-2">10</h3>
+                                            <p>Ventas realizadas en el mes de {{$month->monthName}}</p>
+                                            <h3 class="mb-0 mt-1 mb-2">{{$totalSalesOfTheMonth}}</h3>
                                             {{-- <a href="{{route('ventas.index')}}" >Ver todas</a> --}}
                                         </div>
                                     </div>
@@ -149,11 +149,11 @@
                                     <span class="badge bg-danger border border-danger rounded-pill">🔥 Más vendido</span>
                                 </div>
 
-                                <img class="mw-100" src="https://picsum.photos/200/200?random=21" style="border-radius: 8%">
+                                <img class="mw-100" src="{{asset($mostPurchasedProduct->url_image)}}" style="border-radius: 8%">
                             </div>
                             <div class="row mt-5">
-                                <h6 class="font-weight-bold">Nombre del producto</h6>
-                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                <h6 class="font-weight-bold">{{$mostPurchasedProduct->name}}</h6>
+                                <p class="text-muted">{{$mostPurchasedProduct->description}}</p>
                             </div>
 
                             <div class="row">
@@ -165,10 +165,10 @@
                                 </p>
                             </div>
                             <div class="row mt-3">
-                                <h3 class="text-primary">$155.00</h3>
+                                <h3 class="text-primary">{{$mostPurchasedProduct->getPrice()}}</h3>
                             </div>
                             <div class="row text-right">
-                                <p class="text-muted">Comprado 75 veces</p>
+                                <p class="text-muted">Comprado {{$mostPurchasedProduct->sales_count}} veces</p>
                             </div>
                         </div>
                     </div>
@@ -180,11 +180,11 @@
                                     <span class="badge bg-secondary border border-secondary rounded-pill">💬 Más comentado</span>
                                 </div>
 
-                                <img class="mw-100" src="https://picsum.photos/200/200?random=21" style="border-radius: 8%">
+                                <img class="mw-100" src="{{asset($mostCommentedProduct->url_image)}}" style="border-radius: 8%">
                             </div>
                             <div class="row mt-5">
-                                <h6 class="font-weight-bold">Nombre del producto</h6>
-                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                <h6 class="font-weight-bold">{{$mostCommentedProduct->name}}</h6>
+                                <p class="text-muted">{{$mostCommentedProduct->description}}</p>
                             </div>
 
                             <div class="row">
@@ -196,10 +196,10 @@
                                 </p>
                             </div>
                             <div class="row mt-3">
-                                <h3 class="text-primary">$155.00</h3>
+                                <h3 class="text-primary">{{$mostCommentedProduct->getPrice()}}</h3>
                             </div>
                             <div class="row text-right">
-                                <p class="text-muted">Comentado 150 veces</p>
+                                <p class="text-muted">Comentado {{$mostCommentedProduct->comments_count}} veces</p>
                             </div>
                         </div>
                     </div>
@@ -211,11 +211,11 @@
                                     <span class="badge bg-primary border border-primary rounded-pill">❤ Más calificado</span>
                                 </div>
 
-                                <img class="mw-100" src="https://picsum.photos/200/200?random=21" style="border-radius: 8%">
+                                <img class="mw-100" src="{{asset($mostlikedProduct->url_image)}}" style="border-radius: 8%">
                             </div>
                             <div class="row mt-5">
-                                <h6 class="font-weight-bold">Nombre del producto</h6>
-                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                <h6 class="font-weight-bold">{{$mostlikedProduct->name}}</h6>
+                                <p class="text-muted">{{$mostlikedProduct->description}}</p>
                             </div>
 
                             <div class="row">
@@ -227,10 +227,10 @@
                                 </p>
                             </div>
                             <div class="row mt-3">
-                                <h3 class="text-primary">$155.00</h3>
+                                <h3 class="text-primary">{{$mostlikedProduct->getPrice()}}</h3>
                             </div>
                             <div class="row text-right">
-                                <p class="text-muted">A 67 personas les gusta</p>
+                                <p class="text-muted">A {{$mostlikedProduct->likes_count}} personas les gusta</p>
                             </div>
                         </div>
                     </div>
@@ -277,13 +277,15 @@
                 }
                 $((function(a) {
                         var t;
+                        const monthlyEarnings = @json($earningsOfTheYear);
                         r = document.getElementById("chartline1").getContext("2d"), new Chart(r, {
                             type: "bar",
                             data: {
                                 labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
                                 datasets: [{
                                     label: "Ingresos",
-                                    data: [1250,5342,1232,4421,8521,6231,4172,8434,1229,5135,111,1332],
+                                    data: [monthlyEarnings[0],monthlyEarnings[1],monthlyEarnings[2],monthlyEarnings[3],monthlyEarnings[4],monthlyEarnings[5],
+                                            monthlyEarnings[6],monthlyEarnings[7],monthlyEarnings[8],monthlyEarnings[9],monthlyEarnings[10],monthlyEarnings[11]],
                                     backgroundColor: "rgb(255, 99, 132, 0.8)",
                                     borderColor: "rgb(255, 99, 132)",
                                     borderRadius: Number.MAX_VALUE,
